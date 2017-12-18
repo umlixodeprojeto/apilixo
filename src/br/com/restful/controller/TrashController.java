@@ -22,6 +22,8 @@ public class TrashController {
 		try {
 			trash = dao.getByName(trash);
 			dao.update(trash);
+			
+			dao.disconnect();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			result = false;
@@ -29,4 +31,23 @@ public class TrashController {
 		return result;
 	}
 
+
+
+	public TrashModel getById(long id) {
+		TrashModel trash = new TrashModel();
+		
+		try {
+			TrashDAO dao = new TrashDAO(db);
+			trash = dao.getById(id);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return trash; 
+		
+	}
+
 }
+

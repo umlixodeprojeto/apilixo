@@ -58,8 +58,27 @@ public class TrashDAO extends DAO<TrashModel>{
 		String query = "UPDATE Trash SET full = ? WHERE id = ?";
 		query = query.replaceFirst("\\?", Boolean.toString(trash.isFull()));
 		query = query.replaceFirst("\\?", Long.toString(trash.getId()));
-		System.out.println(query);
+		
 		return this.database.update(query);
+	}
+
+
+	public TrashModel getById(long id) throws SQLException {
+		TrashModel trash = null;
+		String query = "SELECT * FROM Trash WHERE id = ?";
+		
+		query = query.replaceFirst("\\?", Long.toString(id));
+		
+		ResultSet result = this.database.query(query);
+		if (result.next()) {
+			trash = new TrashModel();
+			
+			trash.setId(result.getLong("id"));
+			trash.setName(result.getString("name"));
+			trash.setFull(result.getBoolean("full"));
+		}
+
+		return trash;
 	}
 
 }

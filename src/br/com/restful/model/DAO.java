@@ -16,5 +16,9 @@ public abstract class DAO<E> {
 	public abstract boolean insert (E object);
 	
 	public abstract List<E> getAll();
+	
+	public boolean disconnect () {
+		return this.database.disconnect();
+	}
 }
 
